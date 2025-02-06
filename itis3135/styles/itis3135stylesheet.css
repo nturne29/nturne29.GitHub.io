@@ -65,6 +65,9 @@ main ul {
     border-radius: 10px; 
 }
 
+.subtitle{
+    font-size:13px;
+}
 
 footer {
     padding: 20px 0;
