@@ -58,7 +58,7 @@ header {
     border-bottom: 2px solid #828c51; 
 }
 
-header h1 {
+h1 {
     color: #828c51; 
     margin: 0;
     font-size: 2.5em;
@@ -70,16 +70,11 @@ header p {
     margin: 10px 0 0;
 }
 
-header a{
-    color: 828c51;
-
-}
-
 main {
     padding: 0;
 }
 
-main h2 {
+h2 {
     color: #828c51; 
     font-size: 2em;
     margin-top: 20;
