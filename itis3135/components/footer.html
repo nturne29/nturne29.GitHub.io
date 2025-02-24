@@ -6,7 +6,22 @@
         <a href="https://nturne29.github.io/itis3135/" target="_blank">ITIS3135.io</a> | 
         <a href="https://www.freecodecamp.org/NTurner" target="_blank">freeCodeCamp</a> | 
         <a href="https://www.codecademy.com/profiles/UnexpectedOwl" target="_blank">Codecademy</a> | 
-        <a href="https://www.linkedin.com/in/nik-turner-705001348/" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/nik-turner-705001348/" target="_blank">LinkedIn</a> |
+        <a id="validation_link_html" href="#">HTML Validation</a> |
+        <a id="validation_link_css" href="#">CSS Validation</a>
     </p>
-    <p>Page built by <a href="../turnertechsolutions.co.html">Turner Tech Solutions</a> © 2025</p>
+    <p>Page built by <a href="../turnertechsolutions.co.html">Turner Tech Solutions</a> &copy; 2025</p>
 </footer>
+<script>
+    // Set the HTML validation link
+    document.getElementById("validation_link_html").setAttribute(
+        "href",
+        "https://validator.w3.org/check?uri=" + location.href
+    );
+
+    // Set the CSS validation link
+    document.getElementById("validation_link_css").setAttribute(
+        "href",
+        "https://jigsaw.w3.org/css-validator/validator?uri=" + location.href
+    );
+</script>
