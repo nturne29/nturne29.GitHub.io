@@ -11,18 +11,7 @@
 <body>
     <div id="page-wrapper">
         <!-- Header Section -->
-        <header>
-            <h1>ITIS3135 - Web-Based Design and Development</h1>
-            <h2>Nik Turner || Nasty Toad</h2>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li> 
-                <li><a href="introduction.html">Introduction</a></li> 
-                <li><a href="contract.html">Contract</a></li> 
-                <li><a href="../nasty-toads-soaps/index.html" target="_blank">Whimsical Company Site</a></li>
-            </ul>
-        </nav>
+        <div data-include="components/header.html"></div>
 
         <!-- Contract Agreement -->
         <p> I, <a href="introduction.html">Nik Turner</a> agree to abide by the terms of the course contract in my Spring Semester 2025, 3135, Web-Based Design and Development class with my instructor, Professor D.I. von Briesen.</p>
@@ -34,18 +23,8 @@
         <p>I also understand that given the structure and content of this class it’s possible to find many examples online or even view my classmates’ code directly. I swear that I will only use these resources to learn, and will not cut and paste code except where I have properly given credit (i.e. external libraries) and never from my classmates.</p>
 
         <!-- Footer Section -->
-        <footer>
-            <p>
-                <a href="https://webpages.charlotte.edu/nturne29/" target="_blank">CLT Site</a> | 
-                <a href="https://github.com/nturne29" target="_blank">GitHub</a> | 
-                <a href="https://nturne29.github.io/" target="_blank">GitHub.io</a> | 
-                <a href="https://nturne29.github.io/itis3135/" target="_blank">ITIS3135.io</a> | 
-                <a href="https://www.freecodecamp.org/NTurner" target="_blank">freeCodeCamp</a> | 
-                <a href="https://www.codecademy.com/profiles/UnexpectedOwl" target="_blank">Codecademy</a> | 
-                <a href="https://www.linkedin.com/in/nik-turner-705001348/" target="_blank">LinkedIn</a>
-            </p>
-            <p>Page built by <a href="../turnertechsolutions.co.html"> Turner Tech Solutions</a> &copy; 2025</p>
-        </footer>
+        <div data-include="components/footer.html"></div>
+        <script src="scripts/HTMLInclude.js"></script>
     </div>
 </body>
 </html>
