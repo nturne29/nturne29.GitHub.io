@@ -48,13 +48,6 @@ nav ul li {
     margin: 0 15px;
 }
 
-a {
-    text-decoration: none;
-    color: #5ECFD7;
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
 nav ul li a:hover {
     text-decoration: underline;
 }
@@ -81,7 +74,6 @@ main ul {
     padding-left: 20px;
 }
 
-
 .image-container {
     margin: 20px 0;
 }
@@ -103,12 +95,31 @@ footer {
     text-align:center;
 }
 
-footer a {
-    color: #00bfff; 
-    text-decoration: none;
-    margin: 0 10px;
-}
-
 footer a:hover {
     text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: #5ECFD7;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+a:link {
+    color: #5ECFD7; 
+}
+
+a:visited {
+    color: #4CAFB5; 
+
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #00bfff; 
+}
+
+a:active {
+    color: #e0e0e0; 
 }
