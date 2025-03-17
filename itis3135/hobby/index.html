@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Computers</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2f;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+    
+        header {
+            background-color: #2a2a40;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ff6f61;
+        }
+    
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+    
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+    
+        nav a:hover {
+            color: #ff6f61;
+        }
+    
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+    
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    
+        section {
+            display: none;
+            margin-bottom: 40px;
+        }
+    
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #ff6f61;
+            margin-bottom: 20px;
+        }
+    
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+    
+        .text {
+            flex: 1;
+            max-width: 70%;
+            text-align: left;
+        }
+    
+        .text p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+    
+        .text ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+    
+        .text ol li {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+    
+        .text ol li strong {
+            display: block;
+            margin-bottom: 10px;
+        }
+    
+        .text ol li figure {
+            margin: 20px 0;
+            text-align: center;
+        }
+    
+        .text ol li figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        .text ol li figure figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #a0a0a0;
+        }
+    
+        .text li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .image {
+            flex: 1;
+            max-width: 60%;
+            text-align: center;
+        }
+    
+        .image img {
+            max-width: 75%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #a0a0a0;
+        }
+    
+        footer {
+            background-color: #2a2a40;
+            text-align: center;
+            color: #e0e0e0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer-link {
+            color: #ff6f61; 
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-link:hover {
+            color: white; 
+        }
+
+        .footer-link:active {
+            color: red; 
+        }    
+        .active {
+            display: block;
+        }
+    
+        #how .content {
+            display: block;
+            text-align: center;
+        }
+    
+        #how .text {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+    
+        #how .text > p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        #how .text ol {
+            list-style-type: decimal;
+            padding-left: 40px;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    
+        #how .text ol li {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+    
+        #how .text ol li strong {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    
+        #how .text ol li p {
+            margin: 0 auto 20px;
+            text-align: left;
+            max-width: 100%;
+        }
+    
+        #how .text ol li figure {
+            margin: 20px auto;
+            text-align: center;
+        }
+    
+        #how .text ol li figure img {
+            max-width: 75%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        #how .text ol li figure figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #a0a0a0;
+        }
+    
+        #how .image {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>So you want to Build A Computer?</h1>
+        <nav>
+            <a href="#home" onclick="showSection('home')">Home</a>
+            <a href="#why" onclick="showSection('why')">Why Build</a>
+            <a href="#components" onclick="showSection('components')">Components</a>
+            <a href="#where" onclick="showSection('where')">Where to Build</a>
+            <a href="#how" onclick="showSection('how')">How to Build</a>
+            <a href="#when" onclick="showSection('when')">When to Build</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section id="home" class="active">
+                <h2>Welcome Let's get Started</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Building computers is a rewarding hobby that allows you to create a machine tailored to your specific needs. Whether you're a gamer, a content creator, or just someone who loves technology, building your own PC can be a fun and educational experience.</p>
+                        <p>In this guide, we'll walk you through everything you need to know about building computers, from choosing the right components to assembling them and troubleshooting common issues.</p>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <img src="images/home.jpg" alt="Custom PC">
+                            <figcaption>A fully customized PC with RGB lighting.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="why">
+                <h2>Why Build a Computer?</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Building your own computer has several advantages over buying a pre-built one. Here are some reasons to consider building your own PC:</p>
+                        <ul>
+                            <li><strong>Customization:</strong> You can choose every component to match your specific needs, whether it's for gaming, video editing, or general use.</li>
+                            <li><strong>Cost-Effective:</strong> Building your own PC can often be cheaper than buying a pre-built one, especially if you shop for deals. On average, DIY builders save 20-30% compared to pre-built systems.</li>
+                            <li><strong>Learning Experience:</strong> Building a computer teaches you about hardware and how computers work, which can be useful for troubleshooting and upgrades.</li>
+                            <li><strong>Pride and Satisfaction:</strong> There's a sense of accomplishment that comes with building something yourself.</li>
+                            <li><strong>Better Performance:</strong> By selecting high-quality components, you can build a PC that outperforms pre-built systems at the same price point.</li>
+                        </ul>
+                        <p><strong>Did You Know?</strong> According to a 2022 survey, 65% of PC builders reported higher satisfaction with their custom-built systems compared to pre-built ones. Additionally, 80% of builders said they would recommend building a PC to others.</p>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <img src="images/why_build.jpg" alt="Why Build">
+                            <figcaption>Assorted Computer Components.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="components">
+                <h2>Components and Their Role in a PC</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Understanding the role of each component is key to building a successful PC. Here's a breakdown of the <strong>main</strong> components:</p>
+                        <ul>
+                            <li><strong>CPU (Central Processing Unit):</strong> The brain of the computer, responsible for executing instructions.</li>
+                            <li><strong>GPU (Graphics Processing Unit):</strong> Handles rendering images, video, and animations. Essential for gaming and graphic design.</li>
+                            <li><strong>Motherboard:</strong> The main circuit board that connects all components.</li>
+                            <li><strong>RAM (Random Access Memory):</strong> Temporary storage for data that the CPU is actively using.</li>
+                            <li><strong>Storage (SSD/HDD):</strong> Stores your operating system, applications, and files.</li>
+                            <li><strong>Power Supply:</strong> Provides power to all components.</li>
+                            <li><strong>Case:</strong> Houses all components and provides cooling and protection.</li>
+                        </ul>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <img src="images/components.jpg" alt="PC Components">
+                            <figcaption>Key components of a computer.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="where">
+                <h2>Where to Build</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Choosing the right location to build your computer is crucial. You need a clean, well-lit, and static-free workspace. Here are some tips for setting up your build area:</p>
+                        <ul>
+                            <li><strong>Clean and Organized:</strong> Make sure your workspace is free of dust and clutter. A clean environment reduces the risk of damaging your components.</li>
+                            <li><strong>Static-Free:</strong> Use an anti-static mat or wrist strap to prevent static electricity from damaging sensitive components.</li>
+                            <li><strong>Good Lighting:</strong> Proper lighting is essential for seeing small screws and connectors clearly.</li>
+                        </ul>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <img src="images/workspace.jpg" alt="Workspace">
+                            <figcaption>A clean and organized workspace for building PCs.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how">
+                <h2>How to Build a Computer</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Building a computer involves several steps. Here's a detailed, step-by-step guide to help you through the process:</p>
+                        <ol>
+                            <li>
+                                <strong>Choose Your Components</strong>
+                                <p>Select a CPU, GPU, motherboard, RAM, storage, power supply, and case that meet your needs. Ensure compatibility between components (e.g., the CPU socket must match the motherboard). Research benchmarks and reviews to get the best performance for your budget.</p>
+                                <figure>
+                                    <img src="images/why_build.jpg" alt="Choose Components">
+                                    <figcaption>Selecting the right components for your build.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Prepare Your Workspace</strong>
+                                <p>Set up a clean, static-free area with good lighting. Use an anti-static mat or wrist strap to prevent static electricity from damaging sensitive components. Gather all necessary tools, such as screwdrivers, cable ties, and thermal paste.</p>
+                                <figure>
+                                    <img src="images/workspace.jpg" alt="Prepare Workspace">
+                                    <figcaption>A clean and organized workspace for building PCs.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Install the CPU and Cooler</strong>
+                                <p>Carefully place the CPU into the motherboard socket, aligning the notches. Secure it by lowering the retention arm. Apply thermal paste (if not pre-applied) and attach the CPU cooler, ensuring it’s firmly mounted.</p>
+                                <figure>
+                                    <img src="images/install_cpu.jpg" alt="Install CPU">
+                                    <figcaption>Installing the CPU and cooler onto the motherboard.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Install RAM</strong>
+                                <p>Insert the RAM sticks into the appropriate slots on the motherboard. Open the clips, align the notch on the RAM stick with the slot, and press down firmly until the clips snap into place. For dual-channel performance, use the recommended slots (usually A2 and B2).</p>
+                                <figure>
+                                    <img src="images/install_ram.jpg" alt="Install RAM">
+                                    <figcaption>Inserting RAM sticks into the motherboard.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Install the Motherboard</strong>
+                                <p>Secure the motherboard inside the case using standoffs. Align the I/O shield with the case’s rear cutout and screw the motherboard into place. Connect the front panel connectors (power switch, reset switch, LEDs) to the motherboard.</p>
+                                <figure>
+                                    <img src="images/install_motherboard.jpg" alt="Install Motherboard">
+                                    <figcaption>Mounting the motherboard inside the case.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Install Storage</strong>
+                                <p>Connect your SSD or HDD to the motherboard and power supply. For M.2 SSDs, insert them directly into the motherboard slot. For SATA drives, mount them in the drive bays and connect the SATA data and power cables.</p>
+                                <figure>
+                                    <img src="images/install_storage.jpg" alt="Install Storage">
+                                    <figcaption>Connecting storage drives to the motherboard.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Install the GPU</strong>
+                                <p>Insert the GPU into the PCIe slot on the motherboard. Remove the corresponding case slot covers and secure the GPU with screws. Connect the necessary power cables from the power supply to the GPU.</p>
+                                <figure>
+                                    <img src="images/install_gpu.jpg" alt="Install GPU">
+                                    <figcaption>Installing the GPU into the PCIe slot.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Connect Power Supply</strong>
+                                <p>Connect all necessary power cables to the motherboard, GPU, and storage devices. Route cables neatly to ensure good airflow and a clean look. Use cable ties to manage excess cables.</p>
+                                <figure>
+                                    <img src="images/connect_power.jpg" alt="Connect Power Supply">
+                                    <figcaption>Connecting power cables to the components.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Cable Management</strong>
+                                <p>Organize and secure cables to ensure good airflow and a clean look. Use cable ties and routing holes in the case to keep cables out of the way. Proper cable management improves cooling and makes future upgrades easier.</p>
+                                <figure>
+                                    <img src="images/cable_management.jpg" alt="Cable Management">
+                                    <figcaption>Organizing cables for better airflow.</figcaption>
+                                </figure>
+                            </li>
+                            <li>
+                                <strong>Test and Boot</strong>
+                                <p>Power on the PC and install the operating system. Enter the BIOS to ensure all components are recognized. Boot from a USB drive or installation disc to install your preferred OS (e.g., Windows, Linux). Install drivers and updates for optimal performance.</p>
+                                <figure>
+                                    <img src="images/test_boot.jpg" alt="Test and Boot">
+                                    <figcaption>Booting up the newly built PC.</figcaption>
+                                </figure>
+                            </li>
+                        </ol>   
+                    </div>
+                </div>
+            </section>
+            <!-- When Section  -->
+            <section id="when">
+                <h2>When to Build</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>The best time to build a computer depends on various factors, including hardware release cycles and pricing trends. Here are some guidelines:</p>
+                        <ul>
+                            <li><strong>Post-New Year Sales:</strong> Many component manufacturers offer discounts after the holidays, making this a great time to grab deals.</li>
+                            <li><strong>Black Friday/Cyber Monday:</strong> The biggest sale event of the year offers substantial discounts on many computer parts.</li>
+                            <li><strong>Release Cycles:</strong> If you're aiming to build with the latest and greatest components, it's best to wait for major releases, which typically happen every 12-18 months for CPUs and GPUs.</li>
+                        </ul>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <picture>
+                                <img src="images/when_build.jpg" alt="When to Build">
+                            </picture>
+                            <figcaption>When is the best time to build your PC?</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>Page built by <a href="../turnertechsolutions.co.html" class="footer-link">Turner Tech Solutions</a> © 2025</p>
+    </footer>    
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach((section) => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>    
+</body>
+</html>
