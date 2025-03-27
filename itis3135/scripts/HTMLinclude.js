@@ -7,7 +7,7 @@ function includeHTML() {
             .then(data => {
                 element.innerHTML = data;
                 element.removeAttribute('data-include');
-                includeHTML(); // Recursively include nested includes
+                includeHTML();
             })
             .catch(err => console.error('Error including HTML:', err));
     });
