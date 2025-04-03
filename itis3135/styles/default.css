@@ -180,4 +180,151 @@ footer a:hover {
         font-size: 1em;
         max-width: 100%;
     }
+    
+    
+}
+
+#introForm {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    text-align: left;
+    box-sizing: border-box; 
+}
+
+#introForm fieldset {
+    border: 1px solid #00bfff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+
+#introForm legend {
+    color: #00bfff;
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 1.2em;
+}
+
+#introForm label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #e0e0e0;
+}
+
+#introForm input[type="text"],
+#introForm input[type="file"],
+#introForm textarea {
+    width: 100%;
+    padding: 8px;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    color: #e0e0e0;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    box-sizing: border-box; 
+}
+
+#introForm textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#coursesContainer {
+    margin: 15px 0;
+}
+
+.course-entry {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.course-entry input {
+    flex-grow: 1;
+}
+
+#addCourse,
+.course-entry button,
+.form-buttons input {
+    padding: 8px 15px;
+    background-color: #00bfff;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    transition: background-color 0.3s;
+}
+
+#addCourse:hover,
+.course-entry button:hover,
+.form-buttons input:hover {
+    background-color: #0099cc;
+}
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.agreement {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.agreement label {
+    margin: 0;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+#results {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    text-align: left;
+}
+
+#results a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+#results a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .form-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .agreement {
+        min-width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .form-buttons {
+        width: 100%;
+        justify-content: flex-end;
+    }
 }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYO Intro | Nik Turner | Nasty Toad</title>
+    <link rel="stylesheet" href="styles/default.css">
+    <script src="scripts/survey.js" defer></script>
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div data-include="components/header.html"></div>
+        
+        <main>
+            <h2>Build Your Own Introduction</h2>
+            <h3>Time to BYO Intro page, please fill out the form below</h3>
+            
+            <form id="introForm">
+                <fieldset>
+                    <legend>Basic Information</legend>
+                    
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    
+                    <label for="mascot">Mascot/Nickname:</label>
+                    <input type="text" id="mascot" name="mascot" required placeholder="Enter your nickname or mascot">
+                    
+                    <label for="image">Image (PNG or JPG):</label>
+                    <input type="file" id="image" name="image" accept=".png,.jpg,.jpeg" required>
+                    
+                    <label for="caption">Image Caption:</label>
+                    <input type="text" id="caption" name="caption" required placeholder="Describe your image">
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Background Information</legend>
+                    
+                    <label for="personal">Personal Background:</label>
+                    <textarea id="personal" name="personal" required placeholder="Tell us about yourself"></textarea>
+                    
+                    <label for="professional">Professional Background:</label>
+                    <textarea id="professional" name="professional" required placeholder="Describe your work experience"></textarea>
+                    
+                    <label for="academic">Academic Background:</label>
+                    <textarea id="academic" name="academic" required placeholder="Share your educational background"></textarea>
+                    
+                    <label for="webdev">Background in Web Development:</label>
+                    <textarea id="webdev" name="webdev" required placeholder="Describe your web development experience"></textarea>
+                    
+                    <label for="platform">Primary Computer Platform:</label>
+                    <input type="text" id="platform" name="platform" required placeholder="e.g., Windows, Mac, Linux">
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Courses</legend>
+                    <div id="coursesContainer">
+                        <div class="course-entry">
+                            <input type="text" class="course" name="course[]" required placeholder="e.g., ITIS3135 - Web Design">
+                        </div>
+                    </div>
+                    <button type="button" id="addCourse">Add Another Course</button>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Fun Stuff</legend>
+                    
+                    <label for="funny">Funny/Interesting:</label>
+                    <input type="text" id="funny" name="funny" placeholder="Share something interesting about yourself">
+                    
+                    <label for="anything">Anything Else?</label>
+                    <textarea id="anything" name="anything" placeholder="Add any other information you'd like to share"></textarea>
+                </fieldset>
+                
+                <div class="form-footer">
+                    <div class="agreement">
+                        <input type="checkbox" id="agree" name="agree" required>
+                        <label for="agree">I understand that what is on this page is not password protected and I will not put anything here that I don't want publicly available.</label>
+                    </div>
+                    <div class="form-buttons">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                    </div>
+                </div>
+            </form>
+            
+            <div id="results"></div>
+        </main>
+        
+        <div data-include="components/footer.html"></div>
+        <script src="scripts/HTMLInclude.js"></script>
+    </div>
+</body>
+</html>
