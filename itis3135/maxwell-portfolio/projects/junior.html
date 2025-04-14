@@ -1,0 +1,19 @@
+<main>
+    <section class="air-engine">
+      <h2>Twin-Piston Air Engine</h2>
+      <div class="simulator">
+        <div class="cad-model">
+          <img src="../images/junior/cad-render.jpg" alt="CAD Model">
+        </div>
+        <div class="controls">
+          <label>RPM Control:</label>
+          <input type="range" id="rpm-slider" min="500" max="3000" value="1000">
+          <output id="performance-data">
+            Torque: <span id="torque">15.2</span> Nm @ <span id="rpm">1000</span> RPM
+          </output>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script src="../js/components/engine-simulator.js"></script>

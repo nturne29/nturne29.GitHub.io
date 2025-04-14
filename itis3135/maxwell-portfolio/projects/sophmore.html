@@ -1,0 +1,61 @@
+<main>
+    <section class="materials-testing">
+      <h2>Sophomore Design: Delrin Instron Testing</h2>
+      
+      <div class="project-content">
+        <div class="description">
+          <p>As lead tester, Maxwell conducted tensile strength experiments on Delrin plastic using Instron testing equipment...</p>
+          <ul>
+            <li>Designed experiment protocols</li>
+            <li>Analyzed stress-strain curves</li>
+            <li>Determined failure thresholds</li>
+          </ul>
+        </div>
+        
+        <div class="data-visualization">
+          <div class="chart-container">
+            <canvas id="tensile-chart"></canvas>
+          </div>
+          <button class="pdf-viewer" data-pdf="../docs/delrin-report.pdf">
+            View Full Report
+          </button>
+        </div>
+      </div>
+      
+      <div class="gallery">
+        <img src="../images/sophomore/test-setup.jpg" alt="Test Setup">
+        <img src="../images/sophomore/specimens.jpg" alt="Test Specimens">
+      </div>
+    </section>
+  </main>
+  
+  <script src="../js/components/pdf-viewer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart.js implementation for tensile data
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('tensile-chart');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['0', '10', '20', '30', '40', '50', '60', '70'],
+          datasets: [{
+            label: 'Stress (MPa)',
+            data: [0, 45, 52, 58, 62, 64, 60, 0],
+            borderColor: '#FF6B35',
+            tension: 0.1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              title: { display: true, text: 'Stress (MPa)' }
+            },
+            x: {
+              title: { display: true, text: 'Strain (%)' }
+            }
+          }
+        }
+      });
+    });
+  </script>
