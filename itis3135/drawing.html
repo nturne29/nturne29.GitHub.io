@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITIS3135 | Nik Turner | Nasty Toad | Interactive Drawing</title>
+    <link rel="stylesheet" type="text/css" href="styles/default.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.js"></script>
+    <script src="scripts/sketch.js"></script>
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <!-- Header Section -->
+        <div data-include="components/header.html"></div>
+
+        <!-- Main Content -->
+        <main>
+            <h2>Interactive Drawing with p5.js</h2>
+            
+            <div id="canvas-container">
+            </div>
+            
+            <h3>About This Sketch</h3>
+            <p>This interactive drawing uses the p5.js library to create a bouncing ball animation. The ball changes direction when it hits the edges of the canvas.</p>
+            
+            <h3>How It Works</h3>
+            <ul>
+                <li>The ball starts at position (100, 100)</li>
+                <li>It moves with speed 2.5 horizontally and 2 vertically</li>
+                <li>When it hits any edge, it bounces back</li>
+                <li>The animation runs at 60 frames per second</li>
+            </ul>
+        </main>
+
+        <!-- Footer Section -->
+        <div data-include="components/footer.html"></div>
+        <script src="scripts/HTMLinclude.js"></script>
+    </div>
+</body>
+</html>
