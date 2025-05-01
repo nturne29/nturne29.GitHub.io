@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Plan | Maxwell Peterson's Engineering Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="styles/default.css">
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+    <style>
+        /* Additional styles specific to this page */
+        .project-meta {
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        
+        .specs-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 1.1em;
+        }
+        
+        .specs-table th, .specs-table td {
+            padding: 12px;
+            border: 1px solid #00bfff;
+            text-align: center;
+        }
+        
+        .specs-table th {
+            background-color: #2a2a2a;
+            color: #00bfff;
+        }
+        
+        .site-map-pre {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #00bfff;
+            overflow-x: auto;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        .dynamic-functions {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            font-size: 1.1em;
+        }
+        
+        .page-design-article {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #00bfff;
+        }
+        
+        .page-design-article:last-child {
+            border-bottom: none;
+        }
+        
+        h3 {
+            color: #00bfff;
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            color: #5ECFD7;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <!-- Header Section -->
+        <div data-include="components/header.html"></div>
+
+        <!-- Main Content -->
+        <main>
+            <h1>Project Plan: Maxwell Peterson's Engineering Portfolio</h1>
+            <div class="project-meta">
+                <p><strong>Student Designer Name:</strong> Nik Turner</p>
+                <p><strong>Date:</strong> 3/30/2025</p>
+            </div>
+
+            <section id="overview" class="evaluation-box">
+                <h2>1. Project Overview</h2>
+                <h3>Purpose</h3>
+                <p>A dynamic, modern portfolio website showcasing Maxwell Peterson's engineering projects, Eagle Scout achievements, and professional background. The site will emphasize interactive elements (fade-in animations, PDF viewers, and Timelines) for an engaging user experience.</p>
+                
+                <h3>Intended Users</h3>
+                <ul>
+                    <li>Potential employers in engineering/tech.</li>
+                    <li>Academic peers/professors.</li>
+                    <li>STEM outreach organizations.</li>
+                </ul>
+                
+                <h3>Content</h3>
+                <ul>
+                    <li><strong>Homepage:</strong> Professional headshot + project preview grid.</li>
+                    <li><strong>Project Pages:</strong> 8 dedicated pages (Jeep, CAD Carburetor, 3D Printing, etc.) with media galleries and embedded PDF reports.</li>
+                    <li><strong>About Page:</strong> Bio, resume, and Discovery Place Science role.</li>
+                    <li><strong>Eagle Scout Page:</strong> Leadership and project details.</li>
+                </ul>
+            </section>
+
+            <section id="client-info" class="evaluation-box">
+                <h2>2. Client Information</h2>
+                <ul>
+                    <li><strong>Name:</strong> Maxwell Peterson</li>
+                    <li><strong>Organization:</strong> UNC Charlotte (Mechanical Engineering Technology)</li>
+                    <li><strong>Email:</strong> <a href="mailto:maxwell.p.peterson@gmail.com">maxwell.p.peterson@gmail.com</a> (public per client request)</li>
+                    <li><strong>Phone:</strong> <a href="tel:704-560-8452">704-560-8452</a> (public per client request)</li>
+                </ul>
+            </section>
+
+            <section id="design-specs" class="evaluation-box">
+                <h2>3. Design Specifications</h2>
+                <h3>Color Scheme</h3>
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Hex</th>
+                            <th>Usage Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Primary</td>
+                            <td>#FFFFFF</td>
+                            <td>Backgrounds</td>
+                        </tr>
+                        <tr>
+                            <td>Secondary</td>
+                            <td>#000000</td>
+                            <td>Text, borders, icons</td>
+                        </tr>
+                        <tr>
+                            <td>Accent</td>
+                            <td>#FF6B35</td>
+                            <td>Buttons, hover effects</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Typography</h3>
+                <ul>
+                    <li><strong>Headings:</strong> Montserrat (Bold, #000000).</li>
+                    <li><strong>Body Text:</strong> Inter (Regular, #333333).</li>
+                </ul>
+                
+                <h3>Key Visual Elements</h3>
+                <ul>
+                    <li><strong>Header:</strong> Left-aligned "Portfolio – Maxwell Peterson" (clickable logo).</li>
+                    <li><strong>Footer:</strong> Black background with "Get in Touch" section (orange CTA button).</li>
+                    <li><strong>Animations:</strong> Scroll-triggered fade-ins for content.</li>
+                </ul>
+            </section>
+
+            <section id="site-map" class="evaluation-box">
+                <h2>4. Site Map</h2>
+                <pre class="site-map-pre">
+A[Home] --> B[About]
+A --> C[Eagle Project]
+A --> D[1997 Jeep]
+A --> E[Leathersmithing]
+A --> F[CAD Carburetor]
+A --> G[Mangonel Catapult]
+A --> H[Senior Design]
+A --> I[3D Printing]
+A --> J[Sophmore Design]
+A --> K[Junior Design]</pre>
+            </section>
+
+            <section id="page-designs" class="evaluation-box">
+                <h2>5. Page Designs</h2>
+                
+                <article class="page-design-article">
+                    <h3>1. About</h3>
+                    <h4>Picture section:</h4>
+                    <ul>
+                        <li>Client with design</li>
+                        <li>Client Teaching</li>
+                        <li>Client and Group Team member</li>
+                        <li>Client Holding a Snake at DPS</li>
+                    </ul>
+                    
+                    <h4>Paragraph:</h4>
+                    <p><em>*Client has own Paragraph they want to provide*</em></p>
+                    <p>Maxwell Petersen | 24 | UNC Charlotte ME Senior<br>
+                    🏡 Matthews, NC<br>
+                    🧗 Rock Climber<br>
+                    🎮 Gamer<br>
+                    3D Printing Hobbyist<br>
+                    🔬 Museum Educator @ Discovery Place Science</p>
+                    
+                    <h4>Key Sections:</h4>
+                    <p><strong>Work Timeline With sliding Bar:</strong> Interactive cards (orange borders) for:</p>
+                    <ul>
+                        <li>Discovery Place (STEM labs)</li>
+                        <li>ColsenKeane Leather (bespoke designs + 3D printing)</li>
+                        <li>Autobell (hydraulic systems leadership)</li>
+                    </ul>
+                    
+                    <p><strong>Education:</strong> Minimalist UNC Charlotte/CPCC/Butler HS cards.</p>
+                    
+                    <p><strong>Gallery:</strong> Filterable masonry grid:</p>
+                    <ul>
+                        <li>Eagle Scout ceremony</li>
+                        <li>3D prints with friends</li>
+                        <li>Teaching at Discovery Place</li>
+                    </ul>
+                    
+                    <p><strong>Footer:</strong><br>
+                    Black background, orange "Email Me" button<br>
+                    (<a href="mailto:maxwell.p.peterson@gmail.com">maxwell.p.peterson@gmail.com</a> <a href="tel:704-560-8452">704-560-8452</a>).</p>
+                    
+                    <p><strong>Interactivity:</strong></p>
+                    <ul>
+                        <li>Hover effects on timeline entries.</li>
+                        <li>Lightbox image popups in the gallery.</li>
+                    </ul>
+                </article>
+                
+                <article class="page-design-article">
+                    <h3>2. 1997 Jeep Grand Cherokee Overhaul</h3>
+                    <p><strong>Purpose:</strong> Demonstrate hands-on mechanical expertise.</p>
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li><strong>Gallery:</strong> High-res images of engine rebuild, custom fabrication, before/after comparisons.</li>
+                        <li><strong>Technical Notes:</strong>
+                            <ul>
+                                <li>Transmission rebuild process.</li>
+                                <li>Custom suspension modifications.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Interactive:</strong> PDF viewer for repair logs/schematics.</p>
+                </article>
+                
+                <!-- Additional project pages would follow the same pattern -->
+            </section>
+
+            <section id="dynamic-functionality" class="evaluation-box">
+                <h2>6. Dynamic Functionality</h2>
+                <div class="dynamic-functions">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Media Type</th>
+                                <th>Interactive Element</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jeep Rebuild</td>
+                                <td>Image gallery, PDFs</td>
+                                <td>Zoom, PDF viewer</td>
+                            </tr>
+                            <tr>
+                                <td>CAD Carburetor</td>
+                                <td>3D models</td>
+                                <td>Rotatable viewer</td>
+                            </tr>
+                            <tr>
+                                <td>Mangonel Catapult</td>
+                                <td>Video, blueprints</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>3D Printing</td>
+                                <td>Image gallery</td>
+                                <td>Material/design filters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>More TBD</strong> based on the client's feedback on the implemented Dynamic elements</p>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <div data-include="components/footer.html"></div>
+        <script src="scripts/HTMLinclude.js"></script>
+    </div>
+</body>
+</html>
