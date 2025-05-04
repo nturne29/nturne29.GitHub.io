@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Wrap image and caption
-    item.alt = ''; // Clear alt to prevent browser tooltip
+    item.alt = '';
     container.appendChild(item.cloneNode(true));
     container.appendChild(caption);
     

@@ -5,6 +5,7 @@
   <title>Leathersmithing | Maxwell Peterson</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
   <style>
     /* Enhanced Leathersmithing Styles */
     .leather-intro {
@@ -20,7 +21,9 @@
       border-radius: 12px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.15);
       border: 1px solid rgba(0,0,0,0.1);
+      box-sizing: border-box; 
     }
+
     
     .intro-highlight {
       background: rgba(255,107,53,0.08);
@@ -87,7 +90,6 @@
       margin-top: 2rem;
     }
 
-    /* Fixed Carousel Styles */
     .carousel {
       position: relative;
       margin: 2rem 0;
@@ -172,7 +174,6 @@
       transform: scale(1.2);
     }
 
-    /* Project Showcase Styles */
     .product-showcase {
       background: rgba(255,107,53,0.05);
       padding: 2rem;
@@ -248,7 +249,6 @@
       opacity: 1;
     }
 
-    /* Additional Projects Styles - Updated to match highlighted projects */
     .additional-projects {
       margin: 4rem 0;
     }
@@ -323,7 +323,6 @@
       transform: scale(1.02);
     }
     
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .additional-projects .project-grid {
         grid-template-columns: 1fr;
@@ -333,6 +332,7 @@
         max-width: 100%;
       }
     }
+
   </style>
 </head>
 <body>
@@ -364,11 +364,10 @@
             <div class="business-map">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6519.256489435755!2d-80.82414472367208!3d35.215727855404126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8856a00183323f6d%3A0x2516c0d906062a99!2sColsenKeane%20Leather%2C%20LLC!5e0!3m2!1sen!2sus!4v1746082045614!5m2!1sen!2sus" 
-                width="100%" 
+                width="600" 
                 height="300" 
-                style="border:0;" 
+                style="border:0; width: 100%; height: 100%;" 
                 allowfullscreen="" 
-                loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade">
               </iframe>
             </div>
@@ -396,7 +395,6 @@
         <p>As a Custom Leathersmith, the focus was on crafting bespoke leather goods, with an emphasis on quality and customer satisfaction. This role involved both design and production, allowing for creativity in developing custom projects that met specific client needs.</p>
         
         <div class="day-to-day-carousel">
-          <h3></h3>
           <div class="carousel">
             <div class="carousel-container">
               <div class="carousel-item">
@@ -410,8 +408,8 @@
               </div>
             </div>
             <div class="carousel-nav">
-              <button class="carousel-btn prev"><</button>
-              <button class="carousel-btn next">></button>
+              <button class="carousel-btn prev">&lt;</button>
+              <button class="carousel-btn next">&gt;</button>
             </div>
             <div class="carousel-dots"></div>
           </div>
@@ -568,16 +566,9 @@
       </section>
     </div>
   </main>
-
-  <footer>
-    <div class="container">
-      <p>© 2025 Maxwell Peterson. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
+  <footer></footer>
+  <script src="../js/load-footer.js"></script>
   <script src="../js/carousel.js"></script>
-  <script src="../js/lightbox.js"></script>
   <script src="../js/load-header.js"></script>
 </body>
 </html>

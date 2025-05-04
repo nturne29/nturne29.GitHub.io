@@ -1,6 +1,5 @@
 // js/load-nav.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Remove any existing headers first
     const oldHeaders = document.querySelectorAll('header');
     oldHeaders.forEach(function(header) {
         header.remove();

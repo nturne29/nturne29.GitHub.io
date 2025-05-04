@@ -1,18 +1,459 @@
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lawnmower Carburetor Model | Maxwell Peterson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
   <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+<style>
+    /* Carburetor Page Styles */
+    .carburetor-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin: 3rem 0;
+    }
+    
+    .carburetor-intro img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .intro-highlight {
+      background: rgba(255,107,53,0.08);
+      border-left: 4px solid var(--orange);
+      padding: 2rem;
+      border-radius: 0 8px 8px 0;
+      margin: 2rem 0;
+    }
+    
+    .intro-highlight p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--dark-gray);
+    }
+    
+    .technical-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--white);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .technical-table th, .technical-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .technical-table th {
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 600;
+    }
+    
+    .technical-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .technical-table tr:hover {
+      background: rgba(255,107,53,0.05);
+    }
+    
+    .intro-image {
+      max-height: 400px; 
+      width: auto; 
+      object-fit: contain; 
+      align-self: center; 
+    }
 
-    <section class="cad-model">
-      <h2>Reverse-Engineered Carburetor</h2>
-      <div class="model-viewer" id="carburetor-model">
-        <!-- 3D MODEL WILL LOAD HERE -->
-      </div>
-      <div class="specs">
-        <p><strong>20% efficiency improvement</strong></p>
-        <button class="cta-orange" onclick="window.open('../docs/carburetor-report.pdf')">
-          Download Full Report
-        </button>
+    @media (max-width: 768px) {
+      .intro-image {
+        max-height: 300px;
+      }
+    }
+
+    .project-hero {
+      text-align: center;
+      padding: 1.1rem 0; 
+      margin-bottom: 1.1rem; 
+    }
+    
+    .project-hero h1 {
+      font-size: 3rem; 
+      margin-bottom: 0.5rem;
+    }
+    
+    
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .project-hero .project-subtitle {
+      font-size: 0.925rem; 
+      color: var(--dark-gray);
+    }
+    
+    /* Carousel Styles */
+    .carousel {
+      position: relative;
+      margin: 2rem 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .carousel-container {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 400px;
+    }
+    
+    .carousel-item {
+      min-width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .carousel-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: opacity 0.3s;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+      z-index: 10;
+    }
+    
+    .carousel-btn {
+      background: rgba(255,255,255,0.3);
+      color: var(--black);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    
+    .carousel-btn:hover {
+      background: var(--orange);
+      transform: scale(1.1);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray);
+      border: 1px solid var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .carousel-dot.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: scale(1.2);
+    }
+    
+    /* Gallery Styles */
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+    
+    .gallery-item {
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      object-fit: cover;
+      height: 250px;
+    }
+    
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+    
+    .gallery-item::after {
+      content: attr(data-caption);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.9rem;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* PDF Viewer Styles */
+    .pdf-viewer {
+      margin: 3rem 0;
+    }
+    
+    .pdf-viewer h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pdf-viewer iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .pdf-viewer p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--dark-gray);
+    }
+    
+    .pdf-viewer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .carburetor-intro {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .pdf-viewer iframe {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <script src="../js/load-nav.js" defer></script>
+  </header>
+
+  <main class="carburetor-project">
+    <!-- Hero Section -->
+    <section class="project-hero">
+      <div class="container">
+        <h1>Lawnmower Carburetor Model</h1>
+        <p class="project-subtitle">CAD II Project - Briggs and Stratton 725EX | Spring 2022</p>
       </div>
     </section>
+
+    <div class="container">
+      <!-- Introduction Section -->
+      <section class="carburetor-intro">
+        <div>
+          <h2>Reverse Engineering a Briggs and Stratton 725EX Carburetor</h2>
+          <div class="intro-highlight">
+            <p>For my CAD II final project, I chose to reverse engineer a float-style carburetor from a Briggs and Stratton 725EX lawnmower. This component is critical for mixing air and fuel for combustion in small engines, valued for its mechanical simplicity and reliability without computer programming.</p>
+            <p>Modeling this part in SolidWorks challenged my skills due to its complex geometry, requiring precise measurements with digital calipers and creative problem-solving to capture intricate features like the venturi and metering pin.</p>
+          </div>
+        </div>
+        <img src="../images/carburetor/hero-carburetor.jpg" alt="Briggs and Stratton 725EX carburetor model" class="intro-image">     
+       </section>
+
+      <!-- Project Showcase -->
+      <section class="product-showcase">
+        <h2>Project Overview</h2>
+        <p>The carburetor regulates the air-to-fuel ratio for efficient engine performance, using mechanical components like a float, metering pin, and butterfly valves. I purchased a third-party replica for $10 to disassemble and measure, sketching complex components on grid paper to visualize hidden features. This hands-on approach, combined with SolidWorks, allowed me to create an accurate 3D model.</p>
+        
+        <div class="carburetor-carousel">
+          <h3>Model Views</h3>
+          <div class="carousel">
+            <div class="carousel-container">
+              <div class="carousel-item">
+                <img src="../images/carburetor/model-1.jpg" alt="Carburetor front view">
+                <div class="carousel-caption">Side view of the carburetor model</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/carburetor/model-2.jpg" alt="Carburetor side view">
+                <div class="carousel-caption">Second side view of the carburetor model</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/carburetor/model-3.jpg" alt="Carburetor dimensions">
+                <div class="carousel-caption">Carburetor dimensions</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/carburetor/model-4.jpg" alt="Carburetor Parts">
+                <div class="carousel-caption">Exploded view of the carburetor parts</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/carburetor/model-5.jpg" alt="Carburetor CAD">
+                <div class="carousel-caption">Exploded view of the carburetor parts in autoCAD</div>
+              </div>
+            </div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev">&lt;</button>
+              <button class="carousel-btn next">&gt;</button>
+            </div>            
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+        
+        <p>My goal was to test my SolidWorks proficiency by modeling a part with challenging edges, chamfers, and small-scale features. Using techniques like the shell command and taper pins, I translated physical measurements into a detailed digital model, overcoming limitations in measuring tiny components with innovative methods, such as using pencil lead to gauge depths.</p>
+      </section>
+
+      <!-- Technical Details -->
+      <section>
+        <h2>Technical Breakdown</h2>
+        <p>The carburetor consists of several key components, each with a specific role in fuel delivery. Below is a table summarizing the major parts, adapted from my project writeup, along with a gallery showcasing the modeling process.</p>
+        
+        <table class="technical-table">
+          <thead>
+            <tr>
+              <th>Part #</th>
+              <th>Part Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>109</td>
+              <td>Major Valve Stem (Offset)</td>
+              <td>Actuates the major butterfly valve to allow air & fuel mix to pass to combustion.</td>
+            </tr>
+            <tr>
+              <td>97</td>
+              <td>Minor Valve Stem (Throttle)</td>
+              <td>Direct connection to throttle pedal to actuate intake butterfly valve.</td>
+            </tr>
+            <tr>
+              <td>108</td>
+              <td>Major Butterfly Valve</td>
+              <td>Controls flow of air/fuel to the combustion chamber.</td>
+            </tr>
+            <tr>
+              <td>130</td>
+              <td>Minor Butterfly Valve (Throttle)</td>
+              <td>Smaller valve that primarily allows air through the carburetor venturi.</td>
+            </tr>
+            <tr>
+              <td>134</td>
+              <td>Metering Pin</td>
+              <td>Controlled by the float, allows more/less fuel to travel to the atomization chamber.</td>
+            </tr>
+            <tr>
+              <td>133</td>
+              <td>Fuel Bowl Float</td>
+              <td>Dependent on fuel level, actuates metering pin for fuel delivery control.</td>
+            </tr>
+            <tr>
+              <td>104</td>
+              <td>Float Pin</td>
+              <td>Retains fuel float to the body of the carburetor, so it remains fixed.</td>
+            </tr>
+            <tr>
+              <td>137</td>
+              <td>Fuel Bowl Gasket</td>
+              <td>Allows the fuel bowl to retain fuel safely with a watertight seal.</td>
+            </tr>
+            <tr>
+              <td>276</td>
+              <td>Banjo Bolt Gasket</td>
+              <td>Allows the banjo bolt to have a seal with the base of the fuel bowl.</td>
+            </tr>
+            <tr>
+              <td>117</td>
+              <td>Banjo Bolt</td>
+              <td>Used for transferring excess pressurized fuel safely through the intake stalk.</td>
+            </tr>
+            <tr>
+              <td>125</td>
+              <td>Carburetor Body</td>
+              <td>Where air and fuel are mixed, and then delivered to the combustion chamber(s).</td>
+            </tr>
+            <tr>
+              <td>975</td>
+              <td>Fuel Bowl</td>
+              <td>Intermediate fuel storage as gasoline moves through the system.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
   </main>
-  
-  <script src="../js/components/model-viewer.js"></script>
+  <section class="pdf-viewer">
+    <div class="container">
+      <h2>Carburetor Proposal</h2>
+      <iframe src="../documents/carburetor-proposal.pdf" title="CAD Carburetor Proposal"></iframe>
+      <p>If the PDF does not display, you can <a href="../documents/carburetor-proposal.pdf" download>download it here</a>.</p>
+    </div>
+    <div class="container">
+      <h2>Final Carburetor Paper</h2>
+      <iframe src="../documents/carburetor-paper.pdf" title="Reverse Engineer carburetor paper"></iframe>
+      <p>If the PDF does not display, you can <a href="../documents/carburetor-paper.pdf" download>download it here</a>.</p>
+    </div>
+  </section>
+  <footer></footer>
+
+  <script src="../js/carousel.js"></script>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-footer.js"></script>
+</body>
+</html>

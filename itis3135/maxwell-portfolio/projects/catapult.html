@@ -1,18 +1,506 @@
-<main>
-   <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mangonel Catapult Project | Maxwell Peterson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+  <style>
+    /* Mangonel Catapult Page Styles */
+    .catapult-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin: 3rem 0;
+    }
+    
+    .catapult-intro img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .intro-highlight {
+      background: rgba(255,107,53,0.08);
+      border-left: 4px solid var(--orange);
+      padding: 2rem;
+      border-radius: 0 8px 8px 0;
+      margin: 2rem 0;
+    }
+    
+    .intro-highlight p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--dark-gray);
+    }
+    
+    .technical-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--white);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .technical-table th, .technical-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .technical-table th {
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 600;
+    }
+    
+    .technical-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .technical-table tr:hover {
+      background: rgba(255,107,53,0.05);
+    }
+    
+    .intro-image {
+      max-height: 400px;
+      width: auto;
+      object-fit: contain;
+      align-self: center;
+    }
 
+    @media (max-width: 768px) {
+      .intro-image {
+        max-height: 300px;
+      }
+    }
+
+    .project-hero {
+      text-align: center;
+      padding: 1.1rem 0;
+      margin-bottom: 1.1rem;
+    }
+    
+    .project-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-hero .project-subtitle {
+      font-size: 0.925rem;
+      color: var(--dark-gray);
+    }
+    
+    /* Carousel Styles */
+    .carousel {
+      position: relative;
+      margin: 2rem 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .carousel-container {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 400px;
+    }
+    
+    .carousel-item {
+      min-width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .carousel-item img, .carousel-item video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: opacity 0.3s;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+      z-index: 10;
+    }
+    
+    .carousel-btn {
+      background: rgba(255,255,255,0.3);
+      color: var(--black);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    
+    .carousel-btn:hover {
+      background: var(--orange);
+      transform: scale(1.1);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray);
+      border: 1px solid var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .carousel-dot.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: scale(1.2);
+    }
+    
+    /* Gallery Styles */
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+      justify-content: center;
+    }
+    
+    .gallery-item-container {
+      position: relative;
+    }
+    
+    .gallery-item {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      object-fit: cover;
+      height: 250px;
+    }
+    
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+    
+    .gallery-item::after {
+      content: attr(data-caption);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.9rem;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    
+    .intro-image::after {
+      content: attr(data-caption);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.9rem;
+      border-radius: 0 0 12px 12px;
+    }
+    
+    .intro-image:hover::after {
+      opacity: 1;
+    }
+
+    /* PDF Viewer Styles */
+    .pdf-viewer {
+      margin: 3rem 0;
+    }
+    
+    .pdf-viewer h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pdf-viewer iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .pdf-viewer p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--dark-gray);
+    }
+    
+    .pdf-viewer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .catapult-intro {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .pdf-viewer iframe {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <script src="../js/load-nav.js" defer></script>
+  </header>
+
+  <main class="catapult-project">
+    <!-- Hero Section -->
     <section class="project-hero">
-      <video controls poster="../images/catapult/poster.jpg">
-        <source src="../media/catapult-demo.mp4" type="video/mp4">
-      </video>
-    </section>
-  
-    <section class="engineering">
-      <h2>Catapult Design Leadership</h2>
-      <div class="blueprints">
-        <img src="../images/catapult/design-1.jpg" alt="Initial Design">
-        <img src="../images/catapult/design-2.jpg" alt="Final Blueprint">
+      <div class="container">
+        <h1>Mangonel Catapult Project</h1>
+        <p class="project-subtitle">Dynamics Class Group Project | Spring 2023</p>
       </div>
-      <p>Achieved <strong>50-meter range</strong> with precision targeting...</p>
     </section>
+
+    <div class="container">
+      <!-- Introduction Section -->
+      <section class="catapult-intro">
+        <div>
+          <h2>Designing a Mangonel Catapult for Accuracy and Range</h2>
+          <div class="intro-highlight">
+            <p>As project lead for a team of four in UNC Charlotte’s Dynamics course, I guided the design and construction of a mangonel-style catapult to achieve maximum accuracy and range. With Dylan DiQuarto, Simon Adams, and Hailey Williams, we selected a mangonel for its stability and power, achieving a launch distance of 122.5 ft—within 2% of our calculated 125.2 ft.</p>
+            <p>Our iterative process, from calculations to prototyping, led to a first-place finish among 20+ teams, overcoming initial failures through innovative design improvements.</p>
+          </div>
+        </div>
+        <div>
+          <img src="../images/catapult/finished-catapult.jpg" alt="Completed mangonel catapult" class="intro-image" data-caption="Completed Mangonel Catapult: The final design with a lacrosse stick arm and torsion engine, achieving a 122.5 ft launch.">
+        </div>
+      </section>
+
+      <!-- Initial Calculations -->
+      <section>
+        <h2>Initial Calculations</h2>
+        <div class="catapult-intro">
+          <div>
+            <p>Using dynamics principles, I performed hand calculations to predict the catapult’s performance, estimating a launch velocity of 66.8 ft/s for a tennis ball. Kinematic analysis and moment of inertia for the lacrosse stick arm yielded a projected distance of 125.2 ft. The actual distance of 122.5 ft was within 2%, validating our analytical approach.</p>
+          </div>
+          <div>
+            <img src="../images/catapult/initial-calculations.jpg" alt="Initial calculations on paper" class="intro-image" data-caption="Initial Calculations: Handwritten kinematic equations and moment of inertia calculations for the catapult arm.">
+          </div>
+        </div>
+      </section>
+
+      <!-- Design & Prototyping -->
+      <section>
+        <h2>Design & Prototyping</h2>
+        <p>The mangonel design was chosen for its stability, power, and cost-effectiveness, as determined by a decision matrix evaluating frame strength, stability, ease of construction, cost, and power. We used repurposed 2x4 and 4x4 lumber, a lacrosse stick arm, and a polyethylene rope torsion engine. The initial prototype failed due to shear stress, prompting a redesign with truss supports.</p>
+        <div class="project-gallery">
+          <div class="gallery-item-container">
+            <img src="../images/catapult/hand-sketch.jpg" alt="Initial sketch" class="gallery-item" data-caption="Initial Hand Sketch: Early conceptual drawing of the mangonel catapult design.">
+            <div class="carousel-caption">First prototype sketch</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/napkin-calculations.jpg" alt="Napkin calculations" class="gallery-item" data-caption="Napkin Calculations: Informal calculations for frame angles and structural integrity.">
+            <div class="carousel-caption">First prototype calculations</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/team-aligning-beams.jpg" alt="Team aligning beams" class="gallery-item" data-caption="Team Aligning Beams: Team members aligning support beams during frame construction.">
+            <div class="carousel-caption">Assembling base structure</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Prototype -->
+      <section>
+        <h2>Final Prototype: Learning from Mistakes</h2>
+        <p>The final prototype addressed shear stress with 45° truss supports, 90° tie plates, and a thicker 3/8" polyethylene rope (40 ft, 5 wraps). The lacrosse stick arm struck a 26-inch hurdle at a 73° departure angle for consistency. A winding mechanism with 2-inch pipe handles and a safe-launch paracord trigger enhanced performance and safety.</p>
+        <div class="project-gallery">
+          <div class="gallery-item-container">
+            <img src="../images/catapult/angle-cut-wood.jpg" alt="Angle cut wood" class="gallery-item" data-caption="Angle-Cut Wood: Wood pieces cut at 45° for truss supports to resist shear stress.">
+            <div class="carousel-caption">Angle-Cut Wood: Wood pieces cut at 45° for truss supports to resist shear stress.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/bracket-corner.jpg" alt="Bracket" class="gallery-item" data-caption="Tie Plate: Metal tie plate securing frame corners for structural stability.">
+            <div class="carousel-caption">Tie Plate: Metal tie plate securing frame corners for structural stability.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/side-frame.jpg" alt="Side frame" class="gallery-item" data-caption="Side Frame: Side view of the catapult frame showing truss supports and hurdle.">
+            <div class="carousel-caption">Side Frame: Side view of the catapult frame showing truss supports.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/l-bracket.jpg" alt="L bracket" class="gallery-item" data-caption="L Bracket: L-shaped bracket reinforcing the frame for added strength.">
+            <div class="carousel-caption">L Bracket: L-shaped bracket reinforcing the frame for added strength.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/bar-constructed.jpg" alt="Bar" class="gallery-item" data-caption="Constructed Hurdle Bar: The hurdle bar designed for the lacrosse stick to strike at a 73° angle.">
+            <div class="carousel-caption">Constructed Hurdle Bar: The hurdle bar designed for the lacrosse stick to strike at a 73° angle.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/materials.jpg" alt="Materials" class="gallery-item" data-caption="Hardware obtained from Home Depot.">
+            <div class="carousel-caption">Materials: Hardware obtained from Home Depot.</div>
+          </div>
+        </div>
+        <p>The final catapult, initially using a 1/4" rope, was upgraded to 3/8" for greater power. Key components are shown below.</p>
+        <div class="project-gallery">
+          <div class="gallery-item-container">
+            <img src="../images/catapult/tension-bolt.jpg" alt="Tension bolt" class="gallery-item" data-caption="Carriage Bolt: 7in x 3/8in bolt anchoring the torsion engine to the frame.">
+            <div class="carousel-caption">Carriage Bolt: 7in x 3/8in bolt anchoring the torsion engine to the frame.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/lacrsse-stick.jpg" alt="Lacrosse stick" class="gallery-item" data-caption="Lacrosse Stick Arm: The 30-inch lacrosse stick used as the catapult's launch arm.">
+            <div class="carousel-caption">Lacrosse Stick Arm: The 30-inch lacrosse stick used as the catapult's launch arm.</div>
+          </div>
+          <div class="gallery-item-container">
+            <img src="../images/catapult/final.jpg" alt="Materials" class="gallery-item" data-caption="Completed Catapult: The final mangonel catapult ready for competition.">
+            <div class="carousel-caption">Completed Catapult: The final mangonel catapult ready for competition.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testing & Data Collection -->
+      <section>
+        <h2>In-Depth Testing & Data Collection</h2>
+        <p>Testing in a parking lot showed the first prototype (1/4" rope, 25 ft, 3 wraps) losing tension, with distances up to 73 ft. The second prototype (3/8" rope, 40 ft, 5 wraps) reached 110 ft at 6 twists. On test day, 7 twists achieved 122.5 ft. The competition results and test launch video are below.</p>
+        <div class="catapult-carousel">
+          <div class="carousel">
+            <div class="carousel-container">
+              <div class="carousel-item">
+                <video controls>
+                  <source src="../images/catapult/test-launch.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="carousel-caption">Test launch of the catapult</div>
+              </div>
+              <div class="carousel-item">
+                <video controls>
+                  <source src="../images/catapult/launch.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="carousel-caption">Official launch of the catapult during competition</div>
+              </div>
+            </div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev"><</button>
+              <button class="carousel-btn next">></button>
+            </div>
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Breakdown -->
+      <section>
+        <h2>Technical Breakdown</h2>
+        <p>The mangonel’s key components ensured accuracy and range, as detailed below.</p>
+        <table class="technical-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Frame</td>
+              <td>2x4 and 4x4 lumber with 45° trusses and tie plates for shear resistance.</td>
+            </tr>
+            <tr>
+              <td>Torsion Engine</td>
+              <td>3/8" polyethylene rope, 40 ft, 5 wraps, with 2-inch pipe handles.</td>
+            </tr>
+            <tr>
+              <td>Lacrosse Stick</td>
+              <td>30-inch arm, 28-inch exposed, for consistent projectile launch.</td>
+            </tr>
+            <tr>
+              <td>Hurdle</td>
+              <td>26-inch height, 73° departure angle for optimal trajectory.</td>
+            </tr>
+            <tr>
+              <td>Winding Mechanism</td>
+              <td>2-inch pipe handles with rod insert for torque multiplication.</td>
+            </tr>
+            <tr>
+              <td>Safe-Launch System</td>
+              <td>Paracord trigger for remote firing from 15 feet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
   </main>
+
+  <section class="pdf-viewer">
+    <div class="container">
+      <h2>Catapult Project Report</h2>
+      <iframe src="../documents/Project Report - Team Two.pdf" title="Mangonel Catapult Project Report"></iframe>
+      <p>If the PDF does not display, you can <a href="../documents/Project Report - Team Two.pdf" download>download it here</a>.</p>
+    </div>
+  </section>
+
+  <footer></footer>
+
+  <script src="../js/carousel.js"></script>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-footer.js"></script>
+</body>
+</html>

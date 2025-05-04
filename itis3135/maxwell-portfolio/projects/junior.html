@@ -1,19 +1,891 @@
-<main>
-    <section class="air-engine">
-      <h2>Twin-Piston Air Engine</h2>
-      <div class="simulator">
-        <div class="cad-model">
-          <img src="../images/junior/cad-render.jpg" alt="CAD Model">
-        </div>
-        <div class="controls">
-          <label>RPM Control:</label>
-          <input type="range" id="rpm-slider" min="500" max="3000" value="1000">
-          <output id="performance-data">
-            Torque: <span id="torque">15.2</span> Nm @ <span id="rpm">1000</span> RPM
-          </output>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Twin Piston Air Engine | Maxwell Peterson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+  <style>
+    /* Air Engine Page Styles */
+    
+    .air-engine-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin: 3rem 0;
+    }
+    
+    .air-engine-intro img {
+      width: 100%;
+      height: auto;
+      max-width: 600px; 
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+    
+    .intro-highlight {
+      background: rgba(255,107,53,0.08);
+      border-left: 4px solid var(--orange);
+      padding: 2rem;
+      border-radius: 0 8px 8px 0;
+      margin: 2rem 0;
+    }
+    
+    .intro-highlight p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--dark-gray);
+    }
+    
+    .technical-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--white);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .technical-table th, .technical-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .technical-table th {
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 600;
+    }
+    
+    .technical-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .technical-table tr:hover {
+      background: rgba(255,107,53,0.05);
+    }
+    
+    /* Hero Section */
+    .project-hero {
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .project-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-hero .project-subtitle {
+      font-size: 1rem;
+      color: var(--dark-gray);
+    }
+    
+    /* Simulator Section */
+    .simulator {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+      align-items: start;
+    }
+    
+    .cad-model {
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cad-model img.fallback {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .controls output {
+      font-size: 1rem;
+      color: var(--dark-gray);
+      padding: 0.5rem;
+      background: #f8f8f8;
+      border-radius: 4px;
+    }
+    
+    .simulator-error {
+      color: #d32f2f;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    
+    .plot-container {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #fff;
+      padding: 1rem;
+      position: relative;
+    }
+    
+    #power-plot {
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      visibility: visible !important;
+    }
+    
+    /* Carousel Styles */
+    .carousel {
+      position: relative;
+      margin: 2rem 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .carousel-container {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 400px;
+    }
+    
+    .carousel-item {
+      min-width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .carousel-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: opacity 0.3s;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+      z-index: 10;
+    }
+    
+    .carousel-btn {
+      background: rgba(255,255,255,0.3);
+      color: var(--black);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    
+    .carousel-btn:hover {
+      background: var(--orange);
+      transform: scale(1.1);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray);
+      border: 1px solid var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .carousel-dot.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: scale(1.2);
+    }
+    
+    /* PDF Viewer Styles */
+    .pdf-viewer {
+      margin: 3rem 0;
+    }
+    
+    .pdf-viewer h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pdf-viewer iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #f8f8f8;
+    }
+    
+    .pdf-viewer p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--dark-gray);
+    }
+    
+    .pdf-viewer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    
+    .pdf-viewer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .air-engine-intro {
+        grid-template-columns: 1fr;
+      }
+      
+      .simulator {
+        grid-template-columns: 1fr;
+      }
+      
+      .pdf-viewer iframe {
+        height: 400px;
+      }
+      
+      .cad-model {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <script src="../js/load-nav.js" defer></script>
+  </header>
+
+  <main class="air-engine-project">
+    <!-- Hero Section -->
+    <section class="project-hero">
+      <div class="container">
+        <h1>Twin Piston Air Engine</h1>
+        <p class="project-subtitle">Junior Design Practicum - ETME 3100 | Spring 2023</p>
       </div>
     </section>
+
+    <div class="container">
+      <!-- Introduction Section -->
+      <section class="air-engine-intro">
+        <div>
+          <h2>Designing and Building Elmer's Twin Wobbler Engine</h2>
+          <div class="intro-highlight">
+            <p>As project lead for Team Heat, I guided our team—Dylan DiQuarto, Curtis Miller, Andrew Karls, and Ethan Lentz—in designing, fabricating, and testing a scaled-up version of Elmer's Twin Wobbler air engine. Our goal was to create a high-performing engine with minimal power losses, targeting operation below 2 PSI, 35W output at 40 PSI, and 25% efficiency.</p>
+            <p>We modified the original design with innovative port timing, ball bearings, and a denser flywheel, using SolidWorks for modeling and EES for performance analysis. Despite fabrication challenges and air loss issues, the project provided valuable insights into engine design and machining, detailed in our final report.</p>
+          </div>
+        </div>
+        <img src="../images/junior/final-engine.jpg" alt="Twin Wobbler Air Engine">
+      </section>
+
+      <!-- Project Showcase -->
+      <section class="product-showcase">
+        <h2>Project Overview</h2>
+        <p>The Twin Wobbler project involved scaling up Elmer's design by 2x, incorporating ball bearings for friction reduction, offset port timing for improved airflow, and a steel flywheel for momentum conservation. Fabrication used CNC machining and manual techniques, with a 3-minute break-in regimen. Testing revealed air loss issues due to port timing and chamfering, limiting performance to 655 RPM at 40 PSI with no load.</p>
+        
+        <div class="simulator">
+          <div class="cad-model" id="model-viewer">
+            <img src="../images/junior/cad-render.jpg" alt="CAD Model Fallback" class="fallback">
+          </div>
+          <div class="controls">
+            <div class="plot-container">
+              <canvas id="power-plot"></canvas>
+              <div class="simulator-error" id="chart-error">
+                Unable to load chart. Please ensure JavaScript is enabled and try again.
+              </div>
+            </div>
+            <output id="chart-data">Click a point on the chart to view RPM and power data.</output>
+            <div class="simulator-error" id="simulator-error">
+              Unable to load simulator. Please try refreshing the page.
+            </div>
+          </div>
+        </div>
+        
+        <div class="air-engine-carousel">
+          <h3>Finished Parts</h3>
+          <div class="carousel">
+            <div class="carousel-container">
+              <div class="carousel-item">
+                <img src="../images/junior/piston.jpg" alt="Machined Pistons">
+                <div class="carousel-caption">Finished machined pistons (Rev. 2)</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/junior/flywheel.jpg" alt="Machined Flywheel">
+                <div class="carousel-caption">Finished machined flywheel (Rev. 2)</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/junior/crankshaft.jpg" alt="Machined Crankshafts">
+                <div class="carousel-caption">Finished machined crankshafts</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/junior/column.jpg" alt="Machined Column">
+                <div class="carousel-caption">Finished machined column (Rev. 4)</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/junior/cylinders.jpg" alt="Machined Cylinder">
+                <div class="carousel-caption">Finished machined Cylinders (Rev. 3)</div>
+              </div>
+              <div class="carousel-item">
+                <img src="../images/junior/finished.jpg" alt="Machined Cylinder">
+                <div class="carousel-caption">Finished machined Twin Wobbler Air Engine.</div>
+              </div>
+            </div>
+            <div class="carousel-nav">
+              <button class="carousel-btn prev">&lt;</button>
+              <button class="carousel-btn next">&gt;</button>
+            </div>         
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Details -->
+      <section>
+        <h2>Technical Breakdown</h2>
+        <p>Key findings from the project include issues with port timing, machining precision, and port chamfering, which led to excessive air loss and reduced performance. The table below summarizes theoretical EES calculations at 40 PSI and 1370 RPM, compared to actual performance of 5.2W at 655 RPM.</p>
+        
+        <table class="technical-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Value</th>
+              <th>Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>RPM</td>
+              <td>1370</td>
+              <td>1/min</td>
+            </tr>
+            <tr>
+              <td>Inlet Pressure</td>
+              <td>40</td>
+              <td>psig</td>
+            </tr>
+            <tr>
+              <td>Electric Work</td>
+              <td>12.18</td>
+              <td>W</td>
+            </tr>
+            <tr>
+              <td>Mechanical Work</td>
+              <td>22.56</td>
+              <td>hp</td>
+            </tr>
+            <tr>
+              <td>Air Leakage</td>
+              <td>175</td>
+              <td>cfm</td>
+            </tr>
+            <tr>
+              <td>Mechanical Efficiency</td>
+              <td>48.4</td>
+              <td>%</td>
+            </tr>
+            <tr>
+              <td>Compressor Efficiency</td>
+              <td>13.38</td>
+              <td>%</td>
+            </tr>
+            <tr>
+              <td>Electrical Efficiency</td>
+              <td>7.36</td>
+              <td>%</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
   </main>
-  
-  <script src="../js/components/engine-simulator.js"></script>
+  <footer></footer>
+
+  <!-- PDF Viewer Section -->
+  <section class="pdf-viewer">
+    <div class="container">
+      <h2>Final Design Package</h2>
+      <iframe src="../documents/ETME3100_Final_Design_Package_Team_Heat.docx.pdf" title="ETME 3100 Final Design Package"></iframe>
+      <p>If the PDF does not display, you can <a href="../documents/ETME3100_Final_Design_Package_Team_Heat.docx.pdf" download>download it here</a>.</p>
+    </div>
+  </section>
+
+  <footer></footer>
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script src="../js/carousel.js"></script>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-footer.js"></script>
+  <script>
+    // Inline STLLoader.js
+    (function () {
+      class STLLoader extends THREE.Loader {
+        constructor(manager) {
+          super(manager);
+        }
+
+        load(url, onLoad, onProgress, onError) {
+          const scope = this;
+          const loader = new THREE.FileLoader(this.manager);
+          loader.setPath(this.path);
+          loader.setResponseType('arraybuffer');
+          loader.setRequestHeader(this.requestHeader);
+          loader.setWithCredentials(this.withCredentials);
+          loader.load(url, function (text) {
+            try {
+              onLoad(scope.parse(text));
+            } catch (e) {
+              if (onError) {
+                onError(e);
+              } else {
+                console.error(e);
+              }
+              scope.manager.itemError(url);
+            }
+          }, onProgress, onError);
+        }
+
+        parse(data) {
+          function isBinary(data) {
+            const reader = new DataView(data);
+            const face_size = (32 / 8 * 3) + (32 / 8 * 3 * 3) + (16 / 8);
+            const n_faces = reader.getUint32(80, true);
+            const expect = 80 + (32 / 8) + (n_faces * face_size);
+            if (expect === reader.byteLength) {
+              return true;
+            }
+            const solid = [115, 111, 108, 105, 100];
+            for (let off = 0; off < 5; off++) {
+              if (matchDataViewAt(solid, reader, off)) return false;
+            }
+            return true;
+          }
+
+          function matchDataViewAt(query, reader, offset) {
+            for (let i = 0, il = query.length; i < il; i++) {
+              if (query[i] !== reader.getUint8(offset + i, false)) return false;
+            }
+            return true;
+          }
+
+          function parseBinary(data) {
+            const reader = new DataView(data);
+            const faces = reader.getUint32(80, true);
+            let r, g, b, hasColors = false, colors;
+            let defaultR, defaultG, defaultB, alpha;
+            for (let index = 0; index < 80 - 10; index++) {
+              if ((reader.getUint32(index, false) == 0x434F4C4F) &&
+                  (reader.getUint8(index + 4) == 0x52) &&
+                  (reader.getUint8(index + 5) == 0x3D)) {
+                hasColors = true;
+                colors = new Float32Array(faces * 3 * 3);
+                defaultR = reader.getUint8(index + 6) / 255;
+                defaultG = reader.getUint8(index + 7) / 255;
+                defaultB = reader.getUint8(index + 8) / 255;
+                alpha = reader.getUint8(index + 9) / 255;
+              }
+            }
+            const dataOffset = 84;
+            const faceLength = 12 * 4 + 2;
+            const geometry = new THREE.BufferGeometry();
+            const vertices = new Float32Array(faces * 3 * 3);
+            const normals = new Float32Array(faces * 3 * 3);
+            for (let face = 0; face < faces; face++) {
+              const start = dataOffset + face * faceLength;
+              const normalX = reader.getFloat32(start, true);
+              const normalY = reader.getFloat32(start + 4, true);
+              const normalZ = reader.getFloat32(start + 8, true);
+              if (hasColors) {
+                const packedColor = reader.getUint16(start + 48, true);
+                if ((packedColor & 0x8000) === 0) {
+                  r = (packedColor & 0x1F) / 31;
+                  g = ((packedColor >> 5) & 0x1F) / 31;
+                  b = ((packedColor >> 10) & 0x1F) / 31;
+                } else {
+                  r = defaultR;
+                  g = defaultG;
+                  b = defaultB;
+                }
+              }
+              for (let i = 1; i <= 3; i++) {
+                const vertexstart = start + i * 12;
+                const componentIdx = (face * 3 * 3) + ((i - 1) * 3);
+                vertices[componentIdx] = reader.getFloat32(vertexstart, true);
+                vertices[componentIdx + 1] = reader.getFloat32(vertexstart + 4, true);
+                vertices[componentIdx + 2] = reader.getFloat32(vertexstart + 8, true);
+                normals[componentIdx] = normalX;
+                normals[componentIdx + 1] = normalY;
+                normals[componentIdx + 2] = normalZ;
+                if (hasColors) {
+                  colors[componentIdx] = r;
+                  colors[componentIdx + 1] = g;
+                  colors[componentIdx + 2] = b;
+                }
+              }
+            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            geometry.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
+            if (hasColors) {
+              geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+              geometry.hasColors = true;
+              geometry.alpha = alpha;
+            }
+            return geometry;
+          }
+
+          function parseASCII(data) {
+            const geometry = new THREE.BufferGeometry();
+            const patternSolid = /solid([\s\S]*?)endsolid/g;
+            const patternFace = /facet([\s\S]*?)endfacet/g;
+            let faceCounter = 0;
+            const patternFloat = /[\s]+([+-]?(?:\d*)(?:\.\d*)?(?:[eE][+-]?\d+)?)/.source;
+            const patternVertex = new RegExp('vertex' + patternFloat + patternFloat + patternFloat, 'g');
+            const patternNormal = new RegExp('normal' + patternFloat + patternFloat + patternFloat, 'g');
+            const vertices = [];
+            const normals = [];
+            const normal = new THREE.Vector3();
+            let result;
+            let groupCount = 0;
+            let startVertex = 0;
+            let endVertex = 0;
+            while ((result = patternSolid.exec(data)) !== null) {
+              startVertex = endVertex;
+              const solid = result[0];
+              while ((result = patternFace.exec(solid)) !== null) {
+                let vertexCountPerFace = 0;
+                let normalCountPerFace = 0;
+                const text = result[0];
+                while ((result = patternNormal.exec(text)) !== null) {
+                  normal.x = parseFloat(result[1]);
+                  normal.y = parseFloat(result[2]);
+                  normal.z = parseFloat(result[3]);
+                  normalCountPerFace++;
+                }
+                while ((result = patternVertex.exec(text)) !== null) {
+                  vertices.push(parseFloat(result[1]), parseFloat(result[2]), parseFloat(result[3]));
+                  normals.push(normal.x, normal.y, normal.z);
+                  vertexCountPerFace++;
+                  endVertex++;
+                }
+                if (normalCountPerFace !== 1) {
+                  console.error('THREE.STLLoader: Something isn\'t right with the normal of face number ' + faceCounter);
+                }
+                if (vertexCountPerFace !== 3) {
+                  console.error('THREE.STLLoader: Something isn\'t right with the vertices of face number ' + faceCounter);
+                }
+                faceCounter++;
+              }
+              const start = startVertex;
+              const count = endVertex - startVertex;
+              geometry.addGroup(start, count, groupCount);
+              groupCount++;
+            }
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+            return geometry;
+          }
+
+          function ensureString(buffer) {
+            if (typeof buffer !== 'string') {
+              return THREE.LoaderUtils.decodeText(new Uint8Array(buffer));
+            }
+            return buffer;
+          }
+
+          function ensureBinary(buffer) {
+            if (typeof buffer === 'string') {
+              const array_buffer = new Uint8Array(buffer.length);
+              for (let i = 0; i < buffer.length; i++) {
+                array_buffer[i] = buffer.charCodeAt(i) & 0xff;
+              }
+              return array_buffer.buffer || array_buffer;
+            } else {
+              return buffer;
+            }
+          }
+
+          const binData = ensureBinary(data);
+          return isBinary(binData) ? parseBinary(binData) : parseASCII(ensureString(data));
+        }
+      }
+
+      THREE.STLLoader = STLLoader;
+    })();
+
+    // Optimized STL Viewer and Engine Simulator Chart
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- STL Viewer ---
+      const modelViewer = document.getElementById('model-viewer');
+      const fallbackImage = modelViewer.querySelector('.fallback');
+
+      // Lazy load the viewer when in viewport
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          initializeViewer();
+          observer.disconnect();
+        }
+      }, { threshold: 0.1 });
+
+      observer.observe(modelViewer);
+
+      function initializeViewer() {
+        // Initialize Three.js scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, modelViewer.clientWidth / modelViewer.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(modelViewer.clientWidth, Math.min(modelViewer.clientHeight, 400));
+        modelViewer.appendChild(renderer.domElement);
+
+        // Simplified lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        dirLight.position.set(1, 1, 1).normalize();
+        scene.add(dirLight);
+
+        // Load STL model
+        const loader = new THREE.STLLoader();
+        loader.load(
+          '../models/air-engine.stl',
+          (geometry) => {
+            try {
+              const material = new THREE.MeshPhongMaterial({
+                color: 0x666666,
+                specular: 0xaaaaaa,
+                shininess: 100,
+                side: THREE.DoubleSide,
+                vertexColors: geometry.hasColors ? true : false
+              });
+              const mesh = new THREE.Mesh(geometry, material);
+              scene.add(mesh);
+
+              geometry.computeBoundingBox();
+              const bbox = geometry.boundingBox;
+              const center = bbox.getCenter(new THREE.Vector3());
+              mesh.position.sub(center);
+
+              const size = bbox.getSize(new THREE.Vector3());
+              const maxDim = Math.max(size.x, size.y, size.z);
+              const scale = 100 / maxDim;
+              mesh.scale.set(scale, scale, scale);
+
+              camera.position.z = maxDim * scale * 1.5;
+
+              // Hide fallback image
+              fallbackImage.style.display = 'none';
+            } catch (error) {
+              console.error('Error processing STL geometry:', error);
+              fallbackImage.style.display = 'block';
+              renderer.domElement.style.display = 'none';
+            }
+          },
+          undefined,
+          (error) => {
+            console.error('Error loading STL file:', error);
+            fallbackImage.style.display = 'block';
+            renderer.domElement.style.display = 'none';
+          }
+        );
+
+        // Orbit controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+
+        // Render only on interaction
+        let isInteracting = false;
+        controls.addEventListener('start', () => { isInteracting = true; });
+        controls.addEventListener('end', () => { isInteracting = false; });
+
+        function animate() {
+          requestAnimationFrame(animate);
+          if (isInteracting) {
+            controls.update();
+            renderer.render(scene, camera);
+          }
+        }
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+          const width = modelViewer.clientWidth;
+          const height = Math.min(modelViewer.clientHeight, 400);
+          renderer.setSize(width, height);
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+        });
+
+        // Handle WebGL context loss
+        renderer.domElement.addEventListener('webglcontextlost', (event) => {
+          event.preventDefault();
+          console.warn('WebGL context lost');
+          cancelAnimationFrame(animate);
+        });
+
+        renderer.domElement.addEventListener('webglcontextrestored', () => {
+          console.log('WebGL context restored');
+          animate();
+        });
+      }
+
+      // --- Engine Simulator Chart ---
+      const powerPlot = document.getElementById('power-plot');
+      const chartDataOutput = document.getElementById('chart-data');
+      const simulatorError = document.getElementById('simulator-error');
+      const chartError = document.getElementById('chart-error');
+
+      if (!powerPlot || !chartDataOutput || !simulatorError || !chartError) {
+        console.error('Missing required elements for simulator');
+        if (simulatorError) simulatorError.style.display = 'block';
+        return;
+      }
+
+      const teamHeatElectricalPower = (rpm) => {
+        if (rpm <= 655) return (5.2 / 655) * rpm;
+        if (rpm <= 1370) return 5.2 + (12.18 - 5.2) * (rpm - 655) / (1370 - 655);
+        return 12.18;
+      };
+
+      const teamHeatMechanicalPower = (rpm) => {
+        if (rpm <= 655) return (9.2 / 655) * rpm;
+        if (rpm <= 1370) return 9.2 + (22.56 - 9.2) * (rpm - 655) / (1370 - 655);
+        return 22.56;
+      };
+
+      const rpmRange = Array.from({ length: 31 }, (_, i) => 500 + i * 50);
+      const electricalData = rpmRange.map(rpm => ({ x: rpm, y: teamHeatElectricalPower(rpm) }));
+      const mechanicalData = rpmRange.map(rpm => ({ x: rpm, y: teamHeatMechanicalPower(rpm) }));
+
+      try {
+        const ctx = powerPlot.getContext('2d');
+        if (!ctx) throw new Error('Failed to get 2D context for canvas');
+
+        const powerChart = new Chart(ctx, {
+          type: 'scatter',
+          data: {
+            datasets: [
+              {
+                label: 'Team Heat Electrical Power',
+                data: electricalData,
+                borderColor: '#ff6b35',
+                backgroundColor: '#ff6b35',
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                showLine: true,
+                fill: false,
+                tension: 0.1
+              },
+              {
+                label: 'Team Heat Mechanical Power',
+                data: mechanicalData,
+                borderColor: '#333',
+                backgroundColor: '#333',
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                showLine: true,
+                fill: false,
+                tension: 0.1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                type: 'linear',
+                title: { display: true, text: 'RPM' },
+                min: 500,
+                max: 2000,
+                ticks: { stepSize: 250 }
+              },
+              y: {
+                title: { display: true, text: 'Power (W)' },
+                min: 0,
+                max: 25,
+                ticks: { stepSize: 5 }
+              }
+            },
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Theoretical Power Output at 40 PSI' },
+              tooltip: { enabled: false }
+            },
+            onClick: (event, elements) => {
+              if (elements.length > 0) {
+                const element = elements[0];
+                const datasetIndex = element.datasetIndex;
+                const dataIndex = element.index;
+                const dataset = powerChart.data.datasets[datasetIndex];
+                const point = dataset.data[dataIndex];
+                chartDataOutput.textContent = `${dataset.label}: ${point.x} RPM, ${point.y.toFixed(1)} W`;
+              }
+            }
+          }
+        });
+
+        chartError.style.display = 'none';
+      } catch (error) {
+        console.error('Failed to initialize Chart.js:', error);
+        chartError.style.display = 'block';
+        chartError.textContent = `Chart error: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
