@@ -1,30 +1,50 @@
 // js/load-nav.js
 document.addEventListener('DOMContentLoaded', function() {
+    // Remove existing headers
     const oldHeaders = document.querySelectorAll('header');
     oldHeaders.forEach(function(header) {
         header.remove();
     });
-    
-    // Determine correct path to nav.html
-    const isProjectPage = window.location.pathname.includes('/projects/');
-    const navPath = isProjectPage ? '../js/nav.html' : 'js/nav.html';
-    
-    // Load navigation
-    fetch(navPath)
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('Navigation failed to load: ' + response.status);
-            }
-            return response.text();
-        })
-        .then(function(html) {
-            document.body.insertAdjacentHTML('afterbegin', html);
-            initNavigation();
-        })
-        .catch(function(error) {
-            console.error('Error loading navigation:', error);
-            createFallbackNav();
+
+    // Function definitions
+    function setupNavLinks() {
+        document.querySelectorAll('[data-nav-link]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = link.getAttribute('data-nav-link');
+                const isProjectPage = window.location.pathname.includes('/projects/');
+                const basePath = isProjectPage ? '../' : './';
+                window.location.href = basePath + target;
+            });
         });
+    }
+
+    function setActiveNav() {
+        const currentPath = window.location.pathname;
+        const links = document.querySelectorAll('[data-nav-link]');
+        
+        links.forEach(function(link) {
+            const linkPath = link.getAttribute('data-nav-link');
+            let isActive = false;
+            
+            // Handle index page
+            if ((currentPath.endsWith('/') || currentPath.endsWith('/index.html')) && 
+                linkPath === 'index.html') {
+                isActive = true;
+            }
+            // Handle project pages
+            else if (currentPath.includes('/projects/')) {
+                isActive = currentPath.endsWith('/' + linkPath) || 
+                          link.classList.contains('dropdown-toggle');
+            }
+            // Regular pages
+            else {
+                isActive = currentPath.endsWith('/' + linkPath);
+            }
+            
+            link.classList.toggle('active', isActive);
+        });
+    }
 
     function initNavigation() {
         // Dropdown functionality
@@ -54,46 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set active states
         setActiveNav();
     }
-    
-    function setupNavLinks() {
-        document.querySelectorAll('[data-nav-link]').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = link.getAttribute('data-nav-link');
-                const isProjectPage = window.location.pathname.includes('/projects/');
-                const basePath = isProjectPage ? '../' : './';
-                window.location.href = basePath + target;
-            });
-        });
-    }
-    
-    function setActiveNav() {
-        const currentPath = window.location.pathname;
-        const links = document.querySelectorAll('[data-nav-link]');
-        
-        links.forEach(function(link) {
-            const linkPath = link.getAttribute('data-nav-link');
-            let isActive = false;
-            
-            // Handle index page
-            if ((currentPath.endsWith('/') || currentPath.endsWith('/index.html')) && 
-                linkPath === 'index.html') {
-                isActive = true;
-            }
-            // Handle project pages
-            else if (currentPath.includes('/projects/')) {
-                isActive = currentPath.endsWith('/' + linkPath) || 
-                          link.classList.contains('dropdown-toggle');
-            }
-            // Regular pages
-            else {
-                isActive = currentPath.endsWith('/' + linkPath);
-            }
-            
-            link.classList.toggle('active', isActive);
-        });
-    }
-    
+
     function createFallbackNav() {
         const fallbackNav = `
             <header>
@@ -119,4 +100,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Determine correct path to nav.html
+    const isProjectPage = window.location.pathname.includes('/projects/');
+    const navPath = isProjectPage ? '../js/nav.html' : 'js/nav.html';
+    
+    // Load navigation
+    fetch(navPath)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Navigation failed to load: ' + response.status);
+            }
+            return response.text();
+        })
+        .then(function(html) {
+            document.body.insertAdjacentHTML('afterbegin', html);
+            initNavigation();
+        })
+        .catch(function(error) {
+            console.error('Error loading navigation:', error);
+            createFallbackNav();
+        });
 });
